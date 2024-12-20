@@ -14,6 +14,16 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 from twilio.rest import Client
+from dotenv import load_dotenv
+
+# Laad de .env-variabelen
+load_dotenv(override=True)
+
+# Controleer specifieke variabelen
+print(f"Login URL: {os.getenv('login_url')}")
+print(f"Username: {os.getenv('username')}")
+print(f"Password: {os.getenv('password')}")
+print(f"Cloud Name: {os.getenv('cloud_name')}")
 
 # Configuratie ophalen uit environment variables
 login_url = os.getenv("login_url")
@@ -156,19 +166,19 @@ else:
     print(f"Geoptimaliseerde URL: {optimized_url}")
 
 
-# Twilio configuratie ophalen uit environment variables
-account_sid = os.getenv("account_sid")
-auth_token = os.getenv("auth_token")
-client = Client(account_sid, auth_token)
-
-# Datum van morgen ophalen en formatteren
-tomorrow_date = (datetime.now().strftime("%d-%m-%Y"))  # + timedelta(days=1)).strftime("%d-%m-%Y")
-
-# WhatsApp-bericht verzenden met de datum van morgen
-message = client.messages.create(
-    from_="whatsapp:+14155238886",  # Twilio's WhatsApp-sandboxnummer
-    to="whatsapp:+31614967078",  # Jouw telefoonnummer in internationaal formaat
-    body=f"Dit zijn de energieprijzen voor {tomorrow_date}!",  # Berichttekst met datum van morgen
-    media_url=[secure_url]  # De URL van de Cloudinary-afbeelding
-)
-print(f"Bericht verzonden: {message.sid}")
+## # Twilio configuratie ophalen uit environment variables
+## account_sid = os.getenv("account_sid")
+## auth_token = os.getenv("auth_token")
+## client = Client(account_sid, auth_token)
+## 
+## # Datum van morgen ophalen en formatteren
+## tomorrow_date = (datetime.now().strftime("%d-%m-%Y"))  # + timedelta(days=1)).strftime("%d-%m-%Y")
+## 
+## # WhatsApp-bericht verzenden met de datum van morgen
+## message = client.messages.create(
+##     from_="whatsapp:+14155238886",  # Twilio's WhatsApp-sandboxnummer
+##     to="whatsapp:+31614967078",  # Jouw telefoonnummer in internationaal formaat
+##     body=f"Dit zijn de energieprijzen voor {tomorrow_date}!",  # Berichttekst met datum van morgen
+##     media_url=[secure_url]  # De URL van de Cloudinary-afbeelding
+## )
+## print(f"Bericht verzonden: {message.sid}")
